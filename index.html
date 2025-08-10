@@ -67,12 +67,42 @@
     </form>
 
     <script>
-      // hier komt de code die bepaalde controles doen.
-      // 1. zijn er chechboxes aangeduid?
-      // 2. is er een keuze gemaakt van seizoen?
-      // 3. is er een boek ingevuld?
-      // pas als alles ok is mag de melding komen:
-      // "bedankt om alles in te vullen"
+      document.getElementById("pollForm").addEventListener("submit", function (e) {
+    e.preventDefault(); 
+
+    document.getElementById("hobbyError").style.display = "none";
+    document.getElementById("seizoenError").style.display = "none";
+    document.getElementById("boekError").style.display = "none";
+
+    let geldig = true;
+
+    // 1. zijn er chechboxes aangeduid?
+    const checkboxes = document.querySelectorAll('input[name="hobbies"]:checked');
+    if (checkboxes.length === 0) {
+      document.getElementById("hobbyError").style.display = "block";
+      geldig = false;
+    }
+
+    // 2. is er een keuze gemaakt van seizoen?
+    const seizoenGekozen = document.querySelector('input[name="seizoen"]:checked');
+    if (!seizoenGekozen) {
+      document.getElementById("seizoenError").style.display = "block";
+      geldig = false;
+    }
+
+    // 3. is er een boek ingevuld?
+    const boekInput = document.getElementById("boekInput").value.trim();
+    if (boekInput === "") {
+      document.getElementById("boekError").style.display = "block";
+      geldig = false;
+    }
+
+    // pas als alles ok is mag de melding komen:
+    // "bedankt om alles in te vullen"
+    if (geldig) {
+      alert("Bedankt om alles in te vullen!");
+    }
+    });
     </script>
   </body>
 </html>
